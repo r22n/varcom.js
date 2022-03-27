@@ -1,5 +1,5 @@
 {
-  "name": "varcom",
+  "name": "varcom.js",
   "version": "1.0.0",
   "description": "format your variables-composited string recursively",
   "main": "dist/index.js",
