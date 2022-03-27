@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+      "target": "es2019",
+      "module": "commonjs",
+      "allowJs": true,
+      "outDir": "dist",
+      "declaration": true,
+    },
+    "include":["src"],
+  }

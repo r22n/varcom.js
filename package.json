@@ -1,0 +1,31 @@
+{
+  "name": "varcom",
+  "version": "1.0.0",
+  "description": "format your variables-composited string recursively",
+  "main": "dist/index.js",
+  "scripts": {
+    "make": "tsc",
+    "varcom": "node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/r22n/varcom.js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/r22n/varcom.js/issues"
+  },
+  "homepage": "https://github.com/r22n/varcom.js",
+  "keywords": [
+    "format",
+    "variable",
+    "composite",
+    "recursively",
+    "string",
+    "text"
+  ],
+  "author": "= <r22n@github.com> (https://github.com/r22n)",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.6.3"
+  }
+}
