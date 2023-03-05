@@ -10,7 +10,7 @@ export default function (varcom: Varcom, resolver: { [name in string]: string })
             case "]": {
                 const pop = mem.pop();
                 const peek = mem[mem.length - 1];
-                peek.push(resolver[pop.join("")]);
+                peek.push(resolver[pop!.join("")]);
                 break;
             }
             default: {

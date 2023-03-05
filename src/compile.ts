@@ -5,77 +5,83 @@ export interface Varcom {
     code: string[];
 }
 
-export default function (src: string, userop?: Options) {
-    init();
-    work.options = Object.assign({}, defop, userop);
-    work.src.origin = src;
+let compile: (src: string, userop?: Options) => Varcom;
 
-    tokens();
-    make();
+(() => {
+    compile = (src: string, userop?: Options) => {
+        init();
+        work.options = Object.assign({}, defop, userop);
+        work.src.origin = src;
 
-    return work.result;
-}
+        tokens();
+        make();
 
-// impl 
+        return work.result;
+    }
 
-let work: Work;
-interface Work {
-    options: Options;
-    src: {
-        origin: string;
-        tokens: string[];
-    };
+    // impl 
 
-    result: Varcom;
-}
-
-function init() {
-    work = {
-        options: defop,
+    let work: Work;
+    interface Work {
+        options: Options;
         src: {
-            origin: "",
-            tokens: []
-        },
-        result: {
-            src: "",
-            code: []
-        },
-    };
-}
+            origin: string;
+            tokens: string[];
+        };
 
-function tokens() {
-    const { lbrace, rbrace } = work.options;
-    const org = work.src.origin;
+        result: Varcom;
+    }
 
-    const delims = [lbrace, rbrace];
-    let tokens = [org];
-    delims.filter(x => x).forEach(delim => {
-        tokens = tokens.map(token => token.split(delim).map((x, pos) => pos ? [delim, x] : [x])).flat(2).filter(x => x);
-    });
+    function init() {
+        work = {
+            options: defop,
+            src: {
+                origin: "",
+                tokens: []
+            },
+            result: {
+                src: "",
+                code: []
+            },
+        };
+    }
 
-    work.src.tokens = tokens;
-}
+    function tokens() {
+        const { lbrace, rbrace } = work.options;
+        const org = work.src.origin;
 
-function make() {
-    const { lbrace, rbrace } = work.options;
-    const org = work.src.origin;
-    const tokens = work.src.tokens;
+        const delims = [lbrace ?? '', rbrace ?? ''];
+        let tokens = [org];
+        delims.filter(x => x).forEach(delim => {
+            tokens = tokens.map(token => token.split(delim).map((x, pos) => pos ? [delim, x] : [x])).flat(2).filter(x => x);
+        });
 
-    const result = work.result;
-    result.src = org;
+        work.src.tokens = tokens;
+    }
 
-    const code = result.code;
-    tokens.forEach(token => {
-        switch (token) {
-            case lbrace:
-                code.push("[");
-                break;
-            case rbrace:
-                code.push("]");
-                break;
-            default:
-                code.push(token);
-                break;
-        }
-    });
-}
+    function make() {
+        const { lbrace, rbrace } = work.options;
+        const org = work.src.origin;
+        const tokens = work.src.tokens;
+
+        const result = work.result;
+        result.src = org;
+
+        const code = result.code;
+        tokens.forEach(token => {
+            switch (token) {
+                case lbrace:
+                    code.push("[");
+                    break;
+                case rbrace:
+                    code.push("]");
+                    break;
+                default:
+                    code.push(token);
+                    break;
+            }
+        });
+    }
+})();
+
+export default compile;
