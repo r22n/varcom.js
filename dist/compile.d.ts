@@ -3,5 +3,5 @@ export interface Varcom {
     src: string;
     code: string[];
 }
-declare let compile: (src: string, userop?: Options) => Varcom;
+declare const compile: (src: string, userop?: Options | undefined) => Varcom;
 export default compile;
